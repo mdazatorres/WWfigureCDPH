@@ -95,25 +95,22 @@ city_data['SampleDate'] = pd.to_datetime(city_data['SampleDate'])
 start_date = city_data['SampleDate'].min().to_pydatetime()
 end_date = city_data['SampleDate'].max().to_pydatetime()
 
-st.sidebar.header('PLOT DETAILS')
-col1, col2 = st.sidebar.columns([1, 0.51])
+col1,_, col2 = st.columns([0.3, 0.1, 1])
 smooth = col1.selectbox('Smoothing function', ['Trimmed average', 'Moving average', 'None'], index=1)
 
 if smooth != 'None':
-    size_window = col2.selectbox('Size window', [5,7,10,14], index=1)
+    size_window = col1.selectbox('Size window', [5,7,10,14], index=1)
     center = col1.checkbox('Center')
 else:
     size_window = 0
     center = False
 
-log = st.sidebar.checkbox('Log transformation')
-col1, col2, col3 = st.columns([4, 0.2, 1])
+log = col1.checkbox('Log transformation')
 
-sl_init, sl_end = col1.slider('', min_value=start_date, max_value=end_date+timedelta(days = 0), value=(start_date, end_date+timedelta(days =0)),format='MMM DD, YYYY')
-
+sl_init, sl_end = col2.slider('', min_value=start_date, max_value=end_date+timedelta(days = 0), value=(start_date, end_date+timedelta(days =0)),format='MMM DD, YYYY')
 
 figCV = plotN_CV(city_data, sl_init, sl_end, log, smooth, size_window, center, cities_solids, cts_label)
-col1.plotly_chart(figCV, use_container_width=True)
+col2.plotly_chart(figCV, use_container_width=True)
 
 st.markdown(""" <style>[data-testid="stSidebar"][aria-expanded="true"] > div:first-child {width: 280px;}
     [data-testid="stSidebar"][aria-expanded="false"] > div:first-child {width: 280px;margin-left: -300px;}
