@@ -95,7 +95,7 @@ city_data['SampleDate'] = pd.to_datetime(city_data['SampleDate'])
 start_date = city_data['SampleDate'].min().to_pydatetime()
 end_date = city_data['SampleDate'].max().to_pydatetime()
 
-col1,_, col2 = st.columns([0.3, 0.1, 1])
+col1,_, col2 = st.columns([0.2, 0.05, 1])
 smooth = col1.selectbox('Smoothing function', ['Trimmed average', 'Moving average', 'None'], index=1)
 
 if smooth != 'None':
