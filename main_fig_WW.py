@@ -68,7 +68,7 @@ def plotN_CV(data_ww, start_date, end_date, log, opt, size_window, center, cts, 
             else:
                 fig.add_trace(go.Scatter(name=cts_label[cts[i]], mode='lines', x=X[sw-1:], y=Y[swc:-swc], line=dict(color=color[i], width=3)), secondary_y=False, )
         else:
-            fig.add_trace(go.Scatter(name=cts_label[cts[i]], mode='lines', x=city_data.SampleDate, y=city_data['NormalizedConc_wo'],
+            fig.add_trace(go.Scatter(name=cts_label[cts[i]], mode='markers', x=city_data.SampleDate, y=city_data['NormalizedConc_wo'],
                                      line=dict(color=color[i], width=3)), secondary_y=False, )
     if log:
         fig.update_yaxes(type="log")
@@ -107,7 +107,7 @@ else:
 
 log = col1.checkbox('Log transformation')
 
-sl_init, sl_end = col2.slider('', min_value=start_date, max_value=end_date+timedelta(days = 0), value=(start_date, end_date+timedelta(days =0)),format='MMM DD, YYYY')
+sl_init, sl_end = col2.slider('', min_value=start_date, max_value=end_date+timedelta(days = 1), value=(start_date, end_date+timedelta(days =1)),format='MMM DD, YYYY')
 
 figCV = plotN_CV(city_data, sl_init, sl_end, log, smooth, size_window, center, cities_solids, cts_label)
 col2.plotly_chart(figCV, use_container_width=True)
